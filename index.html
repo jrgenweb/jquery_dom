@@ -188,9 +188,14 @@
         divEl.style.height = "100px";
         divEl.style.backgroundColor = "orangered";
         divEl.style.position = "absolute";
-        divEl.style.zIndex = "-1";
+        divEl.style.zIndex = "100";
         divEl.style.top = yKoordinata + "px";
         divEl.style.left = yKoordinata + "px";
+        divEl.innerHTML =
+          '<p class="text-center p-1 fw-bold">Kattints és a kocka eltűník!</p>';
+        divEl.onclick = (event) => {
+          $(event.currentTarget).remove();
+        };
 
         $("body").append(divEl);
       });
