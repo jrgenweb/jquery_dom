@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hiding Cat</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container w-50">
+      <div class="col-md-6">
+        <h2>1. Feladat - Aktuális szöveghossz</h2>
+
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            name="karakterSzam"
+            id="karakterSzam"
+            class="form-control"
+            placeholder="Írj be tetszőleges karaktereket!"
+          />
+        </div>
+        <p class="task1 result"></p>
+      </div>
+      <div class="col-md-6">
+        <h2>2. Feladat - Kirajzoló</h2>
+
+        <div class="input-group mb-3">
+          <input
+            type="number"
+            value="100"
+            name="xKoordinata"
+            id="xKoordinata"
+            class="form-control"
+            placeholder="X koordináta"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <input
+            type="number"
+            value="100"
+            name="yKoordinata"
+            id="yKoordinata"
+            class="form-control"
+            placeholder="Y koordináta"
+          />
+        </div>
+        <button class="btn btn-primary" id="btnKirajzol">Kirajzol</button>
+      </div>
+      <div class="col-md-6">
+        <h2>3. Feladat Bújócska</h2>
+        <button class="btn btn-success mt-3" id="btnToggle">Előhoz</button>
+        <div id="kep">
+          <img src="hidingCat.jpg" alt="hiding cat" width="200px" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h2>4. Feladat Hibaüzenetek</h2>
+        <div class="input-group mb-3">
+          <input
+            type="email"
+            value=""
+            name="emailCim"
+            id="emailCim"
+            class="form-control"
+            placeholder="Email cím"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <input
+            type="email"
+            value=""
+            name="emailCim2"
+            id="emailCim2"
+            class="form-control"
+            placeholder="Email cím megerősítése"
+          />
+        </div>
+        <button class="btn btn-danger" id="btnEllenorzes">Ellenőrzés</button>
+        <p class="hibauzenetek"></p>
+      </div>
+    </div>
+    <script>
+      //feladat 1
+      $("#karakterSzam").keyup(() => {
+        let szoveg = $("#karakterSzam").val();
+        $(".task1").html(szoveg.length);
+      });
+
+      //feladat2
+
+      $("#btnKirajzol").click(() => {
+        let xKoordinata = $("#xKoordinata").val();
+        let yKoordinata = $("#yKoordinata").val();
+
+        $(".kocka").remove();
+        let divEl = document.createElement("div");
+        divEl.classList.add("kocka");
+        divEl.style.width = "100px";
+        divEl.style.height = "100px";
+        divEl.style.backgroundColor = "orangered";
+        divEl.style.position = "absolute";
+        divEl.style.zIndex = "-1";
+        divEl.style.top = yKoordinata + "px";
+        divEl.style.left = yKoordinata + "px";
+
+        $("body").append(divEl);
+      });
+
+      //feladat3
+      $("#btnToggle").click(() => {
+        $("img").fadeToggle(5000, () => {
+          //$("img").remove();
+        });
+      });
+
+      //feladat4
+
+      $("#btnEllenorzes").click(() => {
+        let email = $("#emailCim").val();
+        let email2 = $("#emailCim2").val();
+        let regex = /^[0-9a-z\.-]+@([0-9a-z-]+\.)+[a-z]{2,4}$/i;
+
+        let colorClassName = "red";
+        let errorMassage = "";
+
+        let emailIsEmptyMatch = email == "" ? true : false;
+        let email2IsEmptyMatch = email2 == "" ? true : false;
+        let emailIsEqual = email == email2 ? true : false;
+        let emailIsValidMatch = regex.test(email);
+
+        if (emailIsEmptyMatch && email2IsEmptyMatch) {
+          errorMassage = "Nincs kitöltve egyik mező sem!";
+        } else if (emailIsEmptyMatch) {
+          errorMassage = "Nincs kitöltveaz email mező!";
+        } else if (email2IsEmptyMatch) {
+          errorMassage = "Nincs kitöltve az email megerősítése mező!";
+        } else if (!emailIsEqual) {
+          errorMassage = "A két mező tartalma nem egyezik!";
+        } else if (!emailIsValidMatch) {
+          errorMassage = "Nem megfelelő az email cím formátuma!";
+        } else {
+          errorMassage = "Adatok rögzítése sikeres!";
+          colorClassName = "green";
+        }
+
+        $(".hibauzenetek").text(errorMassage);
+        if (colorClassName == "red") {
+          $(".hibauzenetek").removeClass("text-success");
+          $(".hibauzenetek").addClass("text-danger");
+        } else {
+          $(".hibauzenetek").removeClass("text-danger");
+          $(".hibauzenetek").addClass("text-success");
+        }
+      });
+    </script>
+  </body>
+</html>
