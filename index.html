@@ -16,86 +16,113 @@
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
+
+    <style>
+      body {
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+      }
+
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      .container {
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.256);
+      }
+    </style>
   </head>
   <body>
-    <div class="container w-50">
-      <div class="col-md-6">
-        <h2>1. Feladat - Aktuális szöveghossz</h2>
+    <div class="container w-50 mt-5 bg-white">
+      <div class="row">
+        <div class="col-md-6 p-5">
+          <h2>1. Feladat - Aktuális szöveghossz</h2>
 
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            name="karakterSzam"
-            id="karakterSzam"
-            class="form-control"
-            placeholder="Írj be tetszőleges karaktereket!"
-          />
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              name="karakterSzam"
+              id="karakterSzam"
+              class="form-control"
+              placeholder="Írj be tetszőleges karaktereket!"
+            />
+          </div>
+          <p class="task1 result"></p>
         </div>
-        <p class="task1 result"></p>
-      </div>
-      <div class="col-md-6">
-        <h2>2. Feladat - Kirajzoló</h2>
+        <div class="col-md-6 p-5">
+          <h2>2. Feladat - Kirajzoló</h2>
 
-        <div class="input-group mb-3">
-          <input
-            type="number"
-            value="100"
-            name="xKoordinata"
-            id="xKoordinata"
-            class="form-control"
-            placeholder="X koordináta"
-          />
+          <div class="input-group mb-3">
+            <input
+              type="number"
+              value="100"
+              name="xKoordinata"
+              id="xKoordinata"
+              class="form-control"
+              placeholder="X koordináta"
+            />
+          </div>
+          <div class="input-group mb-3">
+            <input
+              type="number"
+              value="100"
+              name="yKoordinata"
+              id="yKoordinata"
+              class="form-control"
+              placeholder="Y koordináta"
+            />
+          </div>
+          <button class="btn btn-primary" id="btnKirajzol">Kirajzol</button>
         </div>
-        <div class="input-group mb-3">
-          <input
-            type="number"
-            value="100"
-            name="yKoordinata"
-            id="yKoordinata"
-            class="form-control"
-            placeholder="Y koordináta"
-          />
+        <div class="col-md-6 p-5">
+          <h2>3. Feladat Bújócska</h2>
+          <button class="btn btn-success mt-3" id="btnToggle">Előhoz</button>
+          <div id="kep">
+            <img src="hidingCat.jpg" alt="hiding cat" width="200px" />
+          </div>
         </div>
-        <button class="btn btn-primary" id="btnKirajzol">Kirajzol</button>
-      </div>
-      <div class="col-md-6">
-        <h2>3. Feladat Bújócska</h2>
-        <button class="btn btn-success mt-3" id="btnToggle">Előhoz</button>
-        <div id="kep">
-          <img src="hidingCat.jpg" alt="hiding cat" width="200px" />
+        <div class="col-md-6 p-5">
+          <h2>4. Feladat Hibaüzenetek</h2>
+          <div class="input-group mb-3">
+            <input
+              type="email"
+              value=""
+              name="emailCim"
+              id="emailCim"
+              class="form-control"
+              placeholder="Email cím"
+            />
+          </div>
+          <div class="input-group mb-3">
+            <input
+              type="email"
+              value=""
+              name="emailCim2"
+              id="emailCim2"
+              class="form-control"
+              placeholder="Email cím megerősítése"
+            />
+          </div>
+          <button class="btn btn-danger" id="btnEllenorzes">Ellenőrzés</button>
+          <p class="hibauzenetek"></p>
         </div>
-      </div>
-      <div class="col-md-6">
-        <h2>4. Feladat Hibaüzenetek</h2>
-        <div class="input-group mb-3">
-          <input
-            type="email"
-            value=""
-            name="emailCim"
-            id="emailCim"
-            class="form-control"
-            placeholder="Email cím"
-          />
-        </div>
-        <div class="input-group mb-3">
-          <input
-            type="email"
-            value=""
-            name="emailCim2"
-            id="emailCim2"
-            class="form-control"
-            placeholder="Email cím megerősítése"
-          />
-        </div>
-        <button class="btn btn-danger" id="btnEllenorzes">Ellenőrzés</button>
-        <p class="hibauzenetek"></p>
       </div>
     </div>
     <script>
       //feladat 1
       $("#karakterSzam").keyup(() => {
         let szoveg = $("#karakterSzam").val();
-        $(".task1").html(szoveg.length);
+        $(".task1").html(`(${szoveg.length}) karakter`);
       });
 
       //feladat2
