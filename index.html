@@ -26,6 +26,10 @@
         padding: 1rem;
       }
 
+      .col-md-6:nth-child(odd) {
+        border-right: 5px solid #23a6d5;
+      }
+
       @keyframes gradient {
         0% {
           background-position: 0% 50%;
@@ -41,9 +45,48 @@
         border-radius: 12px;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.256);
       }
+
+      .form-control {
+        border: 0;
+        border-bottom: 2px solid #23a6d5;
+        border-radius: 0;
+
+        &:active {
+        }
+        &:focus {
+          outline: none;
+          box-shadow: none;
+        }
+      }
+      .btn-primary {
+        background: linear-gradient(45deg, #23a6d5, #23d5ab);
+
+        font-weight: bold;
+        text-transform: uppercase;
+        border: 0;
+        &:focus {
+          box-shadow: 0 0 0 5px #23a6d5;
+        }
+      }
+      .btn-danger {
+        background: linear-gradient(45deg, #e73c7e, #ee7752);
+
+        font-weight: bold;
+        text-transform: uppercase;
+        border: 0;
+        &:focus {
+          box-shadow: 0 0 0 5px #ee7752;
+        }
+      }
+      @media screen and (max-width: 768px) {
+        .col-md-6:nth-child(odd) {
+          border-right: 0;
+        }
+      }
     </style>
   </head>
   <body>
+    <h1 class="text-center">jQuery Feladatsor</h1>
     <div class="container mt-5 bg-white">
       <div class="row">
         <div class="col-md-6 p-5">
@@ -62,7 +105,7 @@
         </div>
         <div class="col-md-6 p-5">
           <h2>2. Feladat - Kirajzoló</h2>
-
+          <p class="text-secondary">Add meg az X és Y koordinátákat</p>
           <div class="input-group mb-3">
             <input
               type="number"
@@ -83,11 +126,15 @@
               placeholder="Y koordináta"
             />
           </div>
-          <button class="btn btn-primary" id="btnKirajzol">Kirajzol</button>
+          <button class="btn btn-primary d-block mx-auto" id="btnKirajzol">
+            Kirajzol
+          </button>
         </div>
         <div class="col-md-6 p-5">
           <h2>3. Feladat Bújócska</h2>
-          <button class="btn btn-success mt-3" id="btnToggle">Előhoz</button>
+          <button class="btn btn-danger mt-3 mb-5" id="btnToggle">
+            Előhoz
+          </button>
           <div id="kep">
             <img src="hidingCat.jpg" alt="hiding cat" width="200px" />
           </div>
@@ -114,8 +161,10 @@
               placeholder="Email cím megerősítése"
             />
           </div>
-          <button class="btn btn-danger" id="btnEllenorzes">Ellenőrzés</button>
-          <p class="hibauzenetek"></p>
+          <button class="btn btn-primary d-block mx-auto" id="btnEllenorzes">
+            Ellenőrzés
+          </button>
+          <p class="hibauzenetek mt-3 text-center"></p>
         </div>
       </div>
     </div>
